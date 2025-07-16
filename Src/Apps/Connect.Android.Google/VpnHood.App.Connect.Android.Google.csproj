@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Description>VpnHood Android Client Connect App with Ads and memebership</Description>
+		<TargetFramework>net9.0-android36.0</TargetFramework>
+		<RootNamespace>VpnHood.App.Client.Droid.Google</RootNamespace>
+		<OutputType>Exe</OutputType>
+		<ApplicationId>com.vpnhood.connect.android</ApplicationId>
+		<ApplicationVersion>725</ApplicationVersion>
+		<ApplicationDisplayVersion>7.1.725</ApplicationDisplayVersion>
+		<SupportedOSPlatformVersion>24.0</SupportedOSPlatformVersion>
+		<DebugSymbols>True</DebugSymbols>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<RuntimeIdentifiers>android-arm64;android-x64;android-x86;</RuntimeIdentifiers>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<!--android-arm is required for some android TVs-->
+		<RuntimeIdentifiers>android-arm64;android-x64;android-arm;android-x86;</RuntimeIdentifiers>
+		<PublishTrimmed>True</PublishTrimmed>
+		<RunAOTCompilation>True</RunAOTCompilation>
+		<PathMap>$(SolutionDir)=.</PathMap>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
+		<Company>OmegaHood LLC</Company>
+		<Copyright>© OmegaHood LLC. All rights reserved.</Copyright>
+		<PackageIcon>VpnHood.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/vpnhood/vpnhood</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/vpnhood/vpnhood</RepositoryUrl>
+		<Version>7.1.725</Version>
+		<FileVersion>$([System.DateTime]::Now.ToString("yyyy.M.d.HHmm"))</FileVersion>
+		<BaseIntermediateOutputPath />
+	</PropertyGroup>
+
+	<ItemGroup Condition="Exists('$(SolutionDir)\..\.user\VpnHoodConnect\appsettings.json')">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>AppSettings</_Parameter1>
+			<_Parameter2>$([System.IO.File]::ReadAllText("$(SolutionDir)\..\.user\VpnHoodConnect\appsettings.json"))</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup Condition="Exists('$(SolutionDir)\..\.user\VpnHoodConnect\appsettings.$(Configuration).json')">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>AppSettings_Environment</_Parameter1>
+			<_Parameter2>$([System.IO.File]::ReadAllText("$(SolutionDir)\..\.user\VpnHoodConnect\appsettings.$(Configuration).json"))</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+		<AndroidResource Update="Resources\xml\locales_config.xml">
+			<SubType>Designer</SubType>
+			<Generator>MSBuild:UpdateGeneratedFiles</Generator>
+		</AndroidResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="VpnHood.AppLib.Android.Ads.InMobi" Version="6.0.582" />
+		<PackageReference Include="VpnHood.AppLib.Assets.Ip2LocationLite" Version="6.0.692" />
+		<PackageReference Include="Xamarin.Firebase.Analytics" Version="122.4.0" />
+		<PackageReference Include="Xamarin.Firebase.Crashlytics" Version="119.4.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Android.Ads.AdMob\VpnHood.AppLib.Android.Ads.AdMob.csproj" />
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Android.GooglePlay.Core\VpnHood.AppLib.Android.GooglePlay.Core.csproj" />
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Android.GooglePlay\VpnHood.AppLib.Android.GooglePlay.csproj" />
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Android.Common\VpnHood.AppLib.Android.Common.csproj" />
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Store\VpnHood.AppLib.Store.csproj" />
+		<ProjectReference Include="..\Client\VpnHood.App.Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<GoogleServicesJson Include="Properties\google-services.json" />
+	</ItemGroup>
+
+</Project>
