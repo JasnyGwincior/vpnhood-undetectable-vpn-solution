@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Product>VpnHood! CONNECT</Product>
+		<Description>VpnHood Windows Client App</Description>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows10.0.26100.0</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>False</UseWindowsForms>
+		<AssemblyName>VpnHoodConnect</AssemblyName>
+		<ApplicationIcon>Resources\VpnHood.ico</ApplicationIcon>
+		<EnforceCodeStyleInBuild>false</EnforceCodeStyleInBuild>
+		<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+		<ApplicationManifest>Properties/app.manifest</ApplicationManifest>
+		<RootNamespace>VpnHood.App.Connect.Win.Web</RootNamespace>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>symbols.nupkg</SymbolPackageFormat>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<PathMap>$(SolutionDir)=.</PathMap>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageLicenseExpression>LGPL-2.1-only</PackageLicenseExpression>
+		<Company>OmegaHood LLC</Company>
+		<Copyright>© OmegaHood LLC. All rights reserved.</Copyright>
+		<PackageIcon>VpnHood.png</PackageIcon>
+		<PackageProjectUrl>https://github.com/vpnhood/vpnhood</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/vpnhood/vpnhood</RepositoryUrl>
+		<Version>7.1.725</Version>
+		<FileVersion>$([System.DateTime]::Now.ToString("yyyy.M.d.HHmm"))</FileVersion>
+		<StartupObject></StartupObject>
+	</PropertyGroup>
+
+	<ItemGroup Condition="Exists('$(SolutionDir)\..\.user\VpnHoodConnect\web\appsettings.json')">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>AppSettings</_Parameter1>
+			<_Parameter2>$([System.IO.File]::ReadAllText("$(SolutionDir)\..\.user\VpnHoodConnect\web\appsettings.json"))</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup Condition="Exists('$(SolutionDir)\..\.user\VpnHoodConnect\web\appsettings.$(Configuration).json')">
+		<AssemblyAttribute Include="System.Reflection.AssemblyMetadataAttribute">
+			<_Parameter1>AppSettings_Environment</_Parameter1>
+			<_Parameter2>$([System.IO.File]::ReadAllText("$(SolutionDir)\..\.user\VpnHoodConnect\web\appsettings.$(Configuration).json"))</_Parameter2>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\AppLib\VpnHood.AppLib.Win.Common.WpfSpa\VpnHood.AppLib.Win.Common.WpfSpa.csproj" />
+		<ProjectReference Include="..\Client\VpnHood.App.Client.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3351.48" />
+		<PackageReference Include="VpnHood.AppLib.Assets.Ip2LocationLite" Version="6.0.692" />
+	</ItemGroup>
+
+
+</Project>
